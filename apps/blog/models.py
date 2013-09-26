@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.core.urlresolvers import reverse
 
 
 class GenericManager(models.Manager):
@@ -18,7 +19,7 @@ class Post(models.Model):
     """Post Model."""
     title = models.CharField(max_length=150, verbose_name="title")
     content = models.TextField(blank=False, verbose_name="content")
-    user = models.ForeignKey(User, related_name="user_creator")
+    user = models.ForeignKey(User, related_name="user_creator", verbose_name="User creator")
 
     users_likes = models.ManyToManyField(User, null=True, blank=True) #Users list that like this Post. This only is an example to use ManyToManyField!
     
@@ -29,6 +30,10 @@ class Post(models.Model):
 
     def __unicode__(self):
         return self.title
+
+    def view_on_project(self):
+        return "ir a <a href='%s'>%s</a>" % (reverse("post", args=(self.pk, )), self.title)
+    view_on_project.allow_tags = True
 
     def user_likes_list(self):
         return ", ".join([u.username for u in self.users_likes.all()])

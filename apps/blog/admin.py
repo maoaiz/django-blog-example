@@ -3,7 +3,7 @@ from apps.blog.models import *
 
 
 class PostAdmin(admin.ModelAdmin):
-    list_display = ('title', 'is_active')
+    list_display = ('title', 'is_active', 'view_on_project')
 
 
 class CommentAdmin(admin.ModelAdmin):
