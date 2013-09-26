@@ -2,6 +2,12 @@ from django.db import models
 from django.contrib.auth.models import User
 
 
+class GenericManager(models.Manager):
+
+    def get_all_active(self):
+        return self.filter(is_active=True)
+
+
 class Post(models.Model):
     """Post Model."""
     title = models.CharField(max_length=150, verbose_name="title")
@@ -13,7 +19,7 @@ class Post(models.Model):
     is_active = models.BooleanField(default=True)
     date_added = models.DateTimeField(auto_now_add=True)
     date_modified = models.DateTimeField(auto_now=True)
-    # objects = PostManager()
+    objects = GenericManager()
 
     def __unicode__(self):
         return self.title
@@ -21,14 +27,11 @@ class Post(models.Model):
     def user_likes_list(self):
         return ", ".join([u.username for u in self.users_likes.all()])
 
+    def get_comments(self):
+    	return Comment.objects.filter(id_post=self.pk, is_active=True)
+
     class Meta:
         ordering = ('title',)
-
-
-class CommentManager(models.Manager):
-
-    def get_all_active(self):
-        return self.filter(is_active=True)
 
 
 class Comment(models.Model):
@@ -40,7 +43,7 @@ class Comment(models.Model):
     is_active = models.BooleanField(default=True)
     date_added = models.DateTimeField(auto_now_add=True)
     date_modified = models.DateTimeField(auto_now=True)
-    objects = CommentManager()
+    objects = GenericManager()
 
     def __unicode__(self):
         return self.comment
