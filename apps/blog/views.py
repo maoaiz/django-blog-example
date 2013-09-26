@@ -14,7 +14,6 @@ def post_list(request):
 
 def post(request, id_post):
 	post = get_object_or_404(Post, pk=id_post)
-	comments = post.get_comments(); #get_comments method is on apps.blog.models into Post model
 	return render_to_response("post.html", locals(), context_instance=RequestContext(request))
 
 

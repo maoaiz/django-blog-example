@@ -13,6 +13,12 @@
 			</strong>
 			<small>{{ post.date_added }}</small> by <strong>{{ post.user }}</strong>
 			<div>{{ post.content|safe }}</div>
+			<div class="likes">
+				<strong>likes:</strong>
+				{{ post.users_likes.all|length }} |
+				<strong>comments:</strong>
+				{{ post.get_comments|length }}
+			</div>
 		</li>
 	{% empty %}
 		<li>There are not posts</li>

@@ -10,8 +10,9 @@
 		<small>{{ post.date_added }}</small> by <strong>{{ post.user }}</strong>
 		<div>{{ post.content|safe }}</div>
 		<div class="likes">
-			<a href="#"><span class="glyphicon glyphicon-heart-empty"></span></a> |
+			<a href="#" title="Click for like"><span class="glyphicon glyphicon-heart-empty"></span></a> |
 			<strong>likes:</strong>
+			{{ post.users_likes.all|length }}:
 			{% for user_liked in post.users_likes.all %}
 				{{ user_liked.username }},
 			{% endfor %}
@@ -20,7 +21,7 @@
 	<div class="comments">
 		<strong>Comments:</strong>
 		<ul id="commentList" class="list-unstyled">
-		{% for c in comments %}
+		{% for c in post.get_comments %}
 			<li class="comment">
 				<strong>{{ c.user.username }}</strong>
 				<small>{{ c.date_added }}</small>

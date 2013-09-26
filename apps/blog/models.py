@@ -34,7 +34,7 @@ class Post(models.Model):
         return ", ".join([u.username for u in self.users_likes.all()])
 
     def get_comments(self):
-    	return Comment.objects.filter(post=self.pk, is_active=True)
+    	return Comment.objects.filter(post=self, is_active=True)
 
     class Meta:
         ordering = ('-date_added',)
