@@ -7,7 +7,7 @@
 	<p class="lead">This is a Django basic blog, Enjoy it!</p>
 	<div class="post">
 		<strong>{{ post.title }}</strong>
-		<small>{{ post.date_added }}</small> by <strong>{{ post.id_user }}</strong>
+		<small>{{ post.date_added }}</small> by <strong>{{ post.user }}</strong>
 		<div>{{ post.content|safe }}</div>
 		<div class="likes">
 			<a href="#"><span class="glyphicon glyphicon-heart-empty"></span></a> |
@@ -19,17 +19,18 @@
 	</div>
 	<div class="comments">
 		<strong>Comments:</strong>
-		<ul class="list-unstyled">
+		<ul id="commentList" class="list-unstyled">
 		{% for c in comments %}
 			<li class="comment">
-				<strong>{{ c.id_user.username }}</strong>
+				<strong>{{ c.user.username }}</strong>
 				<small>{{ c.date_added }}</small>
-				<div>{{ c.comment }}</div>
+				<div>{{ c.comment|safe }}</div>
 			</li>
 		{% endfor %}
 		</ul>
 		<div class="comment">
-			<form action="" method="post">{% csrf_token %}
+			<div id="response"></div>
+			<form id="commentForm" action="" method="post">{% csrf_token %}
 				<textarea name="comment" id="newComment" rows="2" placeholder="Esribe un comentario"></textarea>
 				<input type="submit" value="comentar" class="btn btn-primary" >
 			</form>
@@ -50,7 +51,30 @@
 {% block js %}
 	<script type="text/javascript">
 		$(document).ready(function(){
-			//JS TODO here
+			$("#commentForm").on("submit", function (e) {
+				e.preventDefault();
+				e.stopPropagation();
+				var form = $(this);
+				$.post(
+			        "{% url 'new_comment' post.pk %}", //url
+			        form.serialize(), //data
+			        function(data) {      //success method
+			        	console.log(data);
+			        	if(data.sent){
+			            	$('#commentList').append('<li class="comment">'+
+								'<strong>{{ user.username }}</strong>'+
+								' <small>now</small>'+
+								'<div>'+ $('#newComment').val() +'</div>'+
+							'</li>');
+			            	$('#newComment').val("");
+
+			        	}
+			        	if (data.error){
+			            	$('#response').html('<span>' + data.error + '</span>');
+			        	}
+			        }
+			    );
+			});
 		});
 	</script>
 {% endblock %}

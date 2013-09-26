@@ -11,7 +11,7 @@
 			<strong>
 				<a href="{% url 'post' post.pk %}">{{ post.title }}</a>
 			</strong>
-			<small>{{ post.date_added }}</small> by <strong>{{ post.id_user }}</strong>
+			<small>{{ post.date_added }}</small> by <strong>{{ post.user }}</strong>
 			<div>{{ post.content|safe }}</div>
 		</li>
 	{% empty %}
