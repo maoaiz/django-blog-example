@@ -7,6 +7,10 @@ ADMINS = (
     # ('Your Name', 'your_email@example.com'),
 )
 
+LOGIN_URL = "/login"
+LOGOUT_URL = "/logout"
+LOGIN_REDIRECT_URL = "/"
+
 MANAGERS = ADMINS
 
 DATABASES = {

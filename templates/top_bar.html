@@ -14,13 +14,19 @@
               <a href="#" id="menu-admin" role="button" class="dropdown-toggle" data-toggle="dropdown">Crear publicaci&oacute;n</a>
           </li>
       </ul>
+      {% endif %}
       <ul class="nav navbar-nav navbar-right">
+      {% if user.is_authenticated %}
         <li>
           <a href="#">{{ user.username }}
           </a>
         </li>
         <li class="btn-account">
-          <a href="{% url 'logout' %}" class="alert-link">Cerrar sesi&oacute;n</a>
+          <a href="{% url 'logout' %}" class="alert-link">logout</a>
+        </li>
+    {% else %}
+        <li class="btn-account">
+          <a href="{% url 'login' %}" class="alert-link">login</a>
         </li>
       </ul>
     {% endif %}

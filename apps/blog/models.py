@@ -6,6 +6,7 @@ class Post(models.Model):
     """Post Model."""
     title = models.CharField(max_length=150, verbose_name="title")
     content = models.TextField(blank=False, verbose_name="content")
+    id_user = models.ForeignKey(User, related_name="user_creator")
 
     users_likes = models.ManyToManyField(User, null=True, blank=True) #Users list that like this Post. This only is an example to use ManyToManyField!
     
@@ -24,6 +25,12 @@ class Post(models.Model):
         ordering = ('title',)
 
 
+class CommentManager(models.Manager):
+
+    def get_all_active(self):
+        return self.filter(is_active=True)
+
+
 class Comment(models.Model):
     """Comment Model."""
     id_user = models.ForeignKey(User)
@@ -33,7 +40,7 @@ class Comment(models.Model):
     is_active = models.BooleanField(default=True)
     date_added = models.DateTimeField(auto_now_add=True)
     date_modified = models.DateTimeField(auto_now=True)
-    # objects = PostManager()
+    objects = CommentManager()
 
     def __unicode__(self):
         return self.comment

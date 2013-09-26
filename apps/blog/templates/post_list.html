@@ -8,10 +8,14 @@
 	<ul class="list-unstyled">
 	{% for post in post_list %}
 		<li class="post">
-			<strong>{{ post.title }}</strong>
-			<small>{{ post.date_added }}</small>
+			<strong>
+				<a href="{% url 'post' post.pk %}">{{ post.title }}</a>
+			</strong>
+			<small>{{ post.date_added }}</small> by {{ post.id_user }}
 			<div>{{ post.content }}</div>
 		</li>
+	{% empty %}
+		<li>There are not post</li>
 	{% endfor %}
 	</ul>
 {% endblock %}
