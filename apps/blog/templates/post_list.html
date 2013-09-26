@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block TITLE %}Inicio{% endblock %}
+{% block content %}
+	<div class="page-header">
+	  <h1>Django Blog <small>Welcome to my Blog</small></h1>
+	</div>
+	<p class="lead">This is a Django basic blog, Enjoy it!</p>
+	<ul class="list-unstyled">
+	{% for post in post_list %}
+		<li class="post">
+			<strong>{{ post.title }}</strong>
+			<small>{{ post.date_added }}</small>
+			<div>{{ post.content }}</div>
+		</li>
+	{% endfor %}
+	</ul>
+{% endblock %}
+
+{% block style %}
+	<style type="text/css">
+		.post{border-bottom: solid thin #dadada; margin: 10px;padding: 10px;}
+	</style>
+{% endblock %}
+
+{% block js %}
+	<script type="text/javascript">
+		$(document).ready(function(){
+			//JS TODO here
+		});
+	</script>
+{% endblock %}

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="{{ STATIC_URL }}favicon.png">
+
+    <title>{% block TITLE %}{% endblock %}</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="{{ STATIC_URL }}libs/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="{{ STATIC_URL }}libs/bootstrap/dist/css/sticky-footer-navbar.css" rel="stylesheet">
+    <link href="{{ STATIC_URL }}css/style.css" rel="stylesheet">
+    {% block style %}{% endblock %}
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="{{ STATIC_URL }}libs/bootstrap/assets/js/html5shiv.js"></script>
+      <script src="{{ STATIC_URL }}libs/bootstrap/assets/js/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+
+    <!-- Wrap all page content here -->
+    <div id="wrap">
+        <!-- Fixed navbar -->
+        <div class="navbar navbar-default navbar-fixed-top">
+        	{% include "top_bar.html" %}
+        </div>
+
+        <!-- Begin page content -->
+        <div class="container">
+        	{% block content %}
+        	{% endblock %}
+        </div>
+    </div>
+
+    <div id="footer">
+      <div class="container">
+        <p class="text-muted credit">
+          All rights reserved <script>document.write((new Date()).getFullYear())</script> <a href="http://daiech.com">Daiech.com</a>
+        </p>
+      </div>
+    </div>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="{{ STATIC_URL }}libs/bootstrap/assets/js/jquery.js"></script>
+    <script src="{{ STATIC_URL }}libs/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="{{ STATIC_URL }}js/main.js"></script>
+	{% block js %}
+	{% endblock %}
+  </body>
+</html>
