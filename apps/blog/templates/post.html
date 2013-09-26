@@ -6,13 +6,12 @@
 	</div>
 	<p class="lead">This is a Django basic blog, Enjoy it!</p>
 	<div class="post">
-		<strong>
-			<a href="{% url 'post' post.pk %}">{{ post.title }}</a>
-		</strong>
-		<small>{{ post.date_added }} by {{ post.id_user }}</small>
-		<div>{{ post.content }}</div>
+		<strong>{{ post.title }}</strong>
+		<small>{{ post.date_added }}</small> by <strong>{{ post.id_user }}</strong>
+		<div>{{ post.content|safe }}</div>
 		<div class="likes">
-			<strong>Users liked:</strong>
+			<a href="#"><span class="glyphicon glyphicon-heart-empty"></span></a> |
+			<strong>likes:</strong>
 			{% for user_liked in post.users_likes.all %}
 				{{ user_liked.username }},
 			{% endfor %}
@@ -29,15 +28,22 @@
 			</li>
 		{% endfor %}
 		</ul>
+		<div class="comment">
+			<form action="" method="post">{% csrf_token %}
+				<textarea name="comment" id="newComment" rows="2" placeholder="Esribe un comentario"></textarea>
+				<input type="submit" value="comentar" class="btn btn-primary" >
+			</form>
+		</div>
 	</div>
 {% endblock %}
 
 {% block style %}
 	<style type="text/css">
-		.post{background-color: #fafafa;border: solid thin #dadada;padding: 5px; }
-		.likes{border-top: solid thin #dadada;margin-top: 5px;}
+		.post{background-color: #fafafa;border: solid thin #dadada;padding: 10px; }
+		.likes{border-top: solid thin #dadada;margin-top: 5px;padding-top: 10px;}
 		.comments{margin: 10px;}
-		.comment{background-color: #fcfcfc;border-bottom: solid thin #dadada;margin-bottom: 3px;padding: 4px;width: 320px;}
+		.comment{background-color: #fcfcfc;border: solid thin #dadada;margin-bottom: 3px;padding: 10px;width: 320px;}
+		#newComment{margin-bottom: 3px; border:solid thin #ddd; width: 100%;}
 	</style>
 {% endblock %}
 

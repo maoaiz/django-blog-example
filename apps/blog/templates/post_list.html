@@ -11,11 +11,11 @@
 			<strong>
 				<a href="{% url 'post' post.pk %}">{{ post.title }}</a>
 			</strong>
-			<small>{{ post.date_added }}</small> by {{ post.id_user }}
-			<div>{{ post.content }}</div>
+			<small>{{ post.date_added }}</small> by <strong>{{ post.id_user }}</strong>
+			<div>{{ post.content|safe }}</div>
 		</li>
 	{% empty %}
-		<li>There are not post</li>
+		<li>There are not posts</li>
 	{% endfor %}
 	</ul>
 {% endblock %}
